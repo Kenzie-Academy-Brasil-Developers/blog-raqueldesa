@@ -1,7 +1,56 @@
-body{
-   background-color: rgb(247, 240, 240);
+:root{
+   --blue:#6495ED;
+   --laranja:#EDBC64;
+   --branco:white;
 }
+body{
+   background-color: var(--blue);
+   font-family: sans-serif;
+}  
 img{
    height: 100px;
    width: 100px;
+}
+main{
+   width: 100%;
+   display:flex;
+   justify-content: center;
+}
+.container{
+   width: 40%;
+   
+   display:flex;
+   flex-direction: column;
+   align-items:center;
+}
+.container>h1{
+   font-size: 55px;
+   color:var(--branco);
+   margin-bottom: 7vh;
+   margin-top: 5vh;
+}
+.container>form{
+   display:flex;
+   flex-direction: column;
+   align-items: center;
+   width: 100%;
+   height: 77vh;
+}
+.container>form>input{
+   width:100%;
+   height: 9vh;
+   border-style: none;
+   border-radius: 10px;
+   margin-bottom: 4vh;
+   padding-left:20px;
+}
+
+.btn{
+   background-color:var(--laranja);
+   color:var(--branco);
+   
+   width: 30%;
+}
+.btn:hover{
+   background-color: #e9c88b; 
 }

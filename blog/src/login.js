@@ -8,6 +8,7 @@ function loginUsuario(event){
 
    const dados = receberDadosLogin(event);
    UsuarioController.logarUsuario(dados);
+   
 }
 
 function receberDadosLogin(event){
@@ -22,18 +23,5 @@ function receberDadosLogin(event){
    return values;
 }
 
-async function receberDadosUsuarioLogado(){
-   const dados = await UsuarioController.dadosUsuarioLogado();
-}
-//receberDadosUsuarioLogado();
-
-// function adicionaEventoBtnLogout(){
-//    const btnLogout = document.getElementById("logout");
-//    btnLogout.addEventListener("click", logoutUsuario);
-// }
-
-// function logoutUsuario(){
-
-// }
 
 adicionaSubmitLogin();

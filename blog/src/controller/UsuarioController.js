@@ -41,7 +41,6 @@ class UsuarioController{
          localStorage.setItem("id", response.userId);
       })
       .then(()=>{
-         debugger;
          window.location = "home.html";
       })
       .catch((err)=>{
@@ -49,19 +48,20 @@ class UsuarioController{
       })
    }
 
-   // static dadosUsuarioLogado(){
-   //    const URL = `${this.BASE_URL}user/${localStorage.getItem("id")}`;
+   static dadosUsuarioLogado(){
+      const URL = `${this.BASE_URL}user/${localStorage.getItem("id")}`;
 
-   //    return fetch(URL, {
-   //       method: "GET",
-   //       headers:{
-   //          "Access-Control-Allow-Origin": "*",
-   //          "Authorization": `Bearer ${localStorage.getItem("token")}`
-   //      }
-   //    })
-   //    .then(response => response.json())
-   //    .then(res => console.log("oiteste"))
-   //    .catch(err => console.log(err));
-   // }
+      return fetch(URL, {
+         method: "GET",
+         headers:{
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      })
+      .then(response => response.json())
+      .then(res => res)
+      .catch(err => console.log(err));
+   }
 
 }
+

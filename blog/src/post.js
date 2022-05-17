@@ -1,3 +1,6 @@
+
+
+
 async function receberPosts(page){
     const posts = await PostController.receberPosts(page);
     console.log(posts);
@@ -30,17 +33,20 @@ function mostrarPostsTela(posts){
         const idPost = post.id;
 
         const div =  document.createElement("div");
+        const div2 =  document.createElement("div");
         const img = document.createElement("img");
         const nomeUsuario = document.createElement("h4");
         const textPost = document.createElement("p");
         
         div.classList.add("post");
+        div.classList.add("div2");
         img.src = post.owner.avatarUrl;
+
         nomeUsuario.innerText = post.owner.username;
         textPost.innerText = post.post;
+        div2.append(nomeUsuario, textPost)
 
-
-        div.append(img, nomeUsuario, textPost);
+        div.append(img, div2);
         if(idUsuarioPost == idLogado){
             const btnEditar = document.createElement("button");
             const btnExcluir = document.createElement("button");
@@ -51,15 +57,15 @@ function mostrarPostsTela(posts){
             btnEditar.id = "btn-editar";
             btnExcluir.id = "btn-excluir";
 
-            div.append(btnExcluir);
-            div.append(btnEditar)
+            div2.append(btnExcluir);
+            div2.append(btnEditar)
 
             btnEditar.addEventListener("click", ()=>{
-                editarPost(div, textPost, idPost);
+                editarPost(div2, textPost, idPost);
             });
 
             btnExcluir.addEventListener("click",()=>{
-                excluirPost(div, idPost);
+                excluirPost(containerPosts, div, idPost);
             })
 
             
@@ -80,6 +86,8 @@ async function postarPost(){
     postContent.content = document.getElementById("input-novo-post").value;
     
     await PostController.postarPost(postContent);
+    receberPosts(1);
+    document.getElementById("input-novo-post").value = ''
  }
 
  async function editarPost(div, textPost, idPost){
@@ -111,12 +119,28 @@ async function salvarPost(idPost, novoPost){
     await PostController.editarPost(idPost, newContent);
 }
 
-async function excluirPost(div, idPost){
+async function excluirPost(post, div, idPost){
     await PostController.excluirPost(idPost);
-    div.innerHTML = "";
+    post.removeChild(div);
 }
+async function receberDadosUsuarioLogado(){
+    const dados = await UsuarioController.dadosUsuarioLogado();
+    const nome = document.getElementById("nome-usuario");
+    const srcImg = document.getElementById("foto-usuario");
+    srcImg.src = dados.avatarUrl;
+    nome.innerText =dados.username;
+ }
 
+ function LogOut(){
+    localStorage.setItem("token","")
+    window.location = 'login.html'
+ }
+
+ const btnLogOut = document.getElementById("logout");
+ btnLogOut.addEventListener("click",LogOut)
 
 adicionaEventoBtnProxAnte();
 receberPosts(1);
 adicionaEventoBtnPostar();
+receberDadosUsuarioLogado()
+
